@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <style>
+        body{
+            background-image:url({{ url_for('static', filename='images/bg.jpg') }})
+        }
+        #navbar{
+        display: flex;
+        align-items: center;
+        position: sticky;
+        }
+        #navbar::before{
+            content: "";
+            background-color: black;
+            position: absolute;
+            height: 100%;
+            width:100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+        #navbar ul{
+            display: flex;
+            flex-wrap:wrap;
+            justify-content: center;
+            align-items: center;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, cursive;
+        }
+
+        #navbar ul li{ 
+            list-style: none;
+            font-size: 1.3rem;
+        }
+
+        #navbar ul li a{
+            color: rgb(253, 247, 247);
+            display: block;
+            padding: 3px 22px;
+            border-radius: 22px;
+            text-decoration: none;
+        }
+
+        #navbar ul li a:hover{
+            font-weight: bolder;
+            color: rgb(43, 4, 4);
+            background-color: rgb(253, 246, 246);
+        }
+        #time{
+            color: aliceblue;
+            display:inline-flex;
+            
+        }
+        .display{
+            position: absolute;
+            bottom: 0em;
+            right:0em;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <ul>
+            <li class="item"><a href="/">Home</a></li>
+            <li class="item"><a href="/recommend">Recommend</a></li>
+            <li class="item"><a href="/about">About</a></li>
+            <li class="item"><a href="/contact">Contact</a></li>
+        </ul>
+    </nav> 
+    <div class="display">
+        Date and Time: <span id="time"></span>
+    </div>
+    <script>
+        function displayTime(){
+            time = new Date();
+            console.log(time);
+            document.getElementById('time').innerHTML= time;
+        }
+        setInterval(displayTime,1000);
+    </script>
+</body>
+</html>

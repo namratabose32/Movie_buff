@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    
+    <style>
+        body{
+            background-image:url({{ url_for('static', filename='images/contact.jpg') }})
+        }
+        #navbar{
+        display: flex;
+        align-items: center;
+        position: sticky;
+        }
+        #navbar::before{
+            content: "";
+            background-color: rgb(52, 45, 45);
+            position: absolute;
+            height: 100%;
+            width:100%;
+            z-index: -1;
+        }
+        #navbar ul{
+            display: flex;
+            flex-wrap: wrap;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, cursive;
+        }
+
+        #navbar ul li{ 
+            list-style: none;
+            font-size: 1.3rem;
+        }
+
+        #navbar ul li a{
+            color: rgb(253, 247, 247);
+            display: block;
+            padding: 3px 22px;
+            border-radius: 22px;
+            text-decoration: none;
+        }
+
+        #navbar ul li a:hover{
+            font-weight: bolder;
+            color: rgb(43, 4, 4);
+            background-color: rgb(253, 246, 246);
+        }
+        .item{
+            justify-content: center;
+        }
+        h1{
+            font-size: 2rem;
+            text-decoration:underline;
+        }
+        
+        #contact{
+            position: relative;
+        }
+        #contact::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+            background: url('contact.jpg') no-repeat center/cover;
+
+        }
+        #contact-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 25px;
+        }
+        #contact-box input, 
+        #contact-box textarea{
+            width: 100%;
+            padding: 0.1rem;
+            border-radius: 9px;
+            font-size: 1.1rem;
+        } 
+
+        #contact-box form{
+            width: 40%;
+        }
+
+        #contact-box label{
+        font-size: 1.3rem;
+        font-family: 'Bree Serif', serif;
+        font-weight: bolder;
+        }
+        input[type="submit"]{
+            margin-top: 20px;
+            width: 90%;
+            max-width: 200px;
+            background: linear-gradient(to right,rgb(12, 24, 95),rgb(22, 60, 197));
+            border-radius: 8px;
+            border-color:grey;
+            color: aliceblue;         
+        }
+        .error{
+            color:red;
+        }
+        .error-border{
+            border-bottom:1px solid red;
+        }
+        #success{
+            color: greenyellow;
+        }
+        #contact .display{
+            color: rgb(4, 35, 61);
+            position:absolute;
+            bottom: 0px;
+            right: 0px;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>     
+    <section id="contact">
+        <nav id="navbar">
+            <ul>
+                <li class="item"><a href="/">Home</a></li>
+                <li class="item"><a href="/recommend">Recommend</a></li>
+                <li class="item"><a href="/about">About</a></li>
+                            </ul>
+        </nav> 
+        <h1 class="h-primary center">Contact Us</h1>
+        <div id="contact-box">
+            <form action="backend.php" onsubmit="event.preventDefault();validateForm()" method="post">
+                <div class="form-group">
+                    <label for="name">Name: </label>
+                    <input type="text" id="name" placeholder="Enter your name">
+                    <small class="error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email: </label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <small class="error"></small>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message: </label>
+                    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+                    <small class="error"></small>
+                </div>
+                <div class="submit">
+                    <input type="submit" id="submit" value="Submit">
+                    <p id="success"></p>
+                </div>
+            </form>
+        </div>
+        <div class="display">
+            Date and Time: <span id="time"></span>
+        </div>
+    </section>
+    
+    <script>
+        const nameInput=document.querySelector("#name");
+        const email=document.querySelector("#email");
+        const message=document.querySelector("#message");
+        const success=document.querySelector("#success");
+        const errorNodes=document.querySelectorAll(".error");
+       
+        //validate data
+        function validateForm(){
+            clearMessages();
+            let errorFlag=false;
+
+            if(nameInput.value.length < 1){
+                errorNodes[0].innerText="Name cannot be blank";
+                nameInput.classList.add("error-border");
+                errorFlag=true;
+            }
+            if(!emailIsValid(email.value)){
+                errorNodes[1].innerText="Invalid E-mail";
+                email.classList.add("error-border");
+                errorFlag=true;
+            }
+            if(message.value.length<1){
+                errorNodes[2].innerText="Please enetr a message";
+                message.classList.add("error-border");
+                errorFlag=true;
+            }       
+            
+            if(!errorFlag){
+                success.innerText="Success!"
+            }
+        }
+
+        //clear error/success messages
+        function clearMessages(){
+            for(let i=0;i<errorNodes.length;i++){
+                errorNodes[i].innerText="";
+            }
+            nameInput.classList.remove("error-border");
+            email.classList.remove("error-border");
+            message.classList.remove("error-border");
+            
+        }
+        function emailIsValid(email){
+            let pattern=/\S+@\S+\.\S+/;
+            return pattern.test(email);
+        }
+
+        //display time
+        function displayTime(){
+            time = new Date();
+            console.log(time);
+            document.getElementById('time').innerHTML= time;
+        }
+        setInterval(displayTime,1000);
+        
+    </script>
+    </body>
+</html>

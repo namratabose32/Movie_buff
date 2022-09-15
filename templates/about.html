@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <style>
+        *{
+            justify-content:left;
+        }
+        body{
+            background-image:url({{ url_for('static', filename='images/about.jpeg') }})
+        }
+        .navbar{
+        display: flex;
+        position: sticky;
+        background-color: rgb(24, 16, 1);
+        height: 100%;
+        width: 100%;
+        }
+        
+        .navbar ul{
+            display: flex;
+            flex-wrap: wrap;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, cursive;
+        }
+
+        .navbar ul li{ 
+            list-style: none;
+            font-size: 1.3rem;
+        }
+
+        .navbar ul li a{
+            color: rgb(253, 247, 247);
+            display: block;
+            padding: 3px 22px; 
+            border-radius: 22px;
+            text-decoration: none;
+        }
+
+        .navbar ul li a:hover{
+            font-weight: bolder;
+            color: rgb(43, 4, 4);
+            background-color: rgb(253, 246, 246);
+        }
+        .detail{
+            display: flex;
+            justify-content: center;
+            border-color: black;
+        }
+        #content{
+            background-color: rgb(161, 133, 99);
+            width: 23rem;
+            text-align: center;            
+            border-radius: 2rem;
+            padding: 2rem;
+            font-weight: bolder;
+
+        }
+        h1{
+            color: rgb(250, 203, 101);
+            text-decoration: underline;
+            text-align: center;
+        }
+        .display{
+            position: absolute;
+            bottom: 0em;
+            right:0em;
+            color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li class="item"><a href="/"> HOME</a></li>
+            <li class="item"><a href="/recommend"> RECOMMEND</a></li>
+            <li class="item"><a href="/contact"> CONTACT</a></li>
+        </ul>
+    </div>     
+    <div id="box"><h1>ABOUT THE SYSTEM:</h1></div>
+    <div class="detail">
+        <p id="content">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci sunt nulla impedit possimus maiores, 
+                et delectus quis asperiores fugiat sint iusto, beatae optio amet quia cupiditate unde rem nam quibusdam consectetur
+                quod recusandae sed dolorum. Harum, ratione. Eos magnam animi quis incidunt eum temporibus praesentium itaque? 
+                Accusantium omnis obcaecati id
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci sunt nulla impedit possimus maiores, 
+                et delectus quis asperiores fugiat sint iusto, beatae optio amet quia cupiditate unde rem nam quibusdam consectetur
+                quod recusandae sed dolorum. Harum, ratione. Eos magnam animi quis incidunt eum temporibus praesentium itaque? 
+                Accusantium omnis obcaecati id.</centre>            
+        </p>
+    </div>  
+    <div class="display">
+        Date and Time: <span id="time"></span>
+    </div>
+    <script>
+        function displayTime(){
+            time = new Date();
+            console.log(time);
+            document.getElementById('time').innerHTML= time;
+        }
+        setInterval(displayTime,1000);
+    </script>
+</body>
+</html>
